@@ -10,6 +10,8 @@ Gem::Specification.new do |spec|
   spec.authors = ['Maarten Trompper']
   spec.email = ['maartentrompper@gmail.com']
 
+  spec.required_ruby_version = '>= 1.9.2'
+
   spec.summary = %q{Serialize Nokogiri XML documents to JSON}
   spec.description = %q{Adds a `to_json` method to Nokogiri XML documents.}
   spec.homepage = 'https://github.com/digitalheir/ruby-xml-to-json'
