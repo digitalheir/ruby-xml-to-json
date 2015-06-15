@@ -2,6 +2,8 @@
 require 'spec_helper'
 
 describe Xml::To::Json do
+  XML = Nokogiri::XML(STR_XML)
+
   it 'has a version number' do
     expect(Xml::To::Json::VERSION).not_to be nil
   end
@@ -11,7 +13,23 @@ describe Xml::To::Json do
   end
 
   it 'generate JSON as in the example' do
-    expect(JSON.pretty_generate(Nokogiri::XML(STR_XML)).length > 0).to eq(true)
-    expect(JSON.pretty_generate(Nokogiri::XML(STR_XML)).length).to eq(STR_JSON.length)
+    expect(JSON.pretty_generate(XML).length > 0).to eq(true)
+    expect(JSON.pretty_generate(XML).length).to eq(STR_JSON.length)
   end
+
+  it 'handles notations' do
+    notation = Nokogiri::XML::Notation.new(name='name',public_id='pub_id',system_id='syst_id')
+    expect(notation.to_json).to eq('{"name":"name","public_id":"pub_id","system_id":"syst_id"}')
+  end
+
+  it 'handles namespace' do
+    node = Nokogiri::XML '<root xmlns:pref="schema://path" pref:attr= "attr-value">'
+    namespace = node.root.attributes['attr'].namespace
+    expect(namespace.to_json).to eq('{"href":"schema://path","prefix":"pref"}')
+  end
+  it 'handles ElementContent' do
+    node = XML.children[0].elements['photo']
+    expect(node.to_json).to eq('{"type":"element_declaration","name":"photo","element_type":4,"content":{"name":"hello","occur":"once","type":"element"},"attributes":[{"type":"attribute_declaration","name":"some-attribute","attribute_type":1,"enumeration":[]},{"type":"attribute_declaration","name":"photo_att","attribute_type":5,"enumeration":[]},{"type":"attribute_declaration","name":"photo","attribute_type":10,"enumeration":["notation-system","NoTaTiOn-PuBLiC"]}]}')
+  end
+
 end

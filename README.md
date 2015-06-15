@@ -5,7 +5,7 @@
 
 This Ruby gem adds a `to_hash` and `to_json` method to Nokogiri XML nodes, allowing us to serialize arbitrary XML nodes to JSON.
 
-This gem also picks up attributes, processing instructions and doctype declarations. The result is wordy, but complete.
+This gem also picks up attributes, comments, processing instructions and doctype declarations. The result is wordy, but complete.
 
 As an added bonus, line numbers are included where possible.
 
