@@ -29,7 +29,7 @@ describe Xml::To::Json do
   end
   it 'handles ElementContent' do
     node = XML.children[0].elements['photo'].content
-    expect(node.to_json).to eq('"{"name":"hello","occur":"once","type":"element"}"')
+    expect(node.to_json).to eq('{"name":"hello","occur":"once","type":"element"}')
   end
 
 end
