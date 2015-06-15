@@ -28,8 +28,8 @@ describe Xml::To::Json do
     expect(namespace.to_json).to eq('{"href":"schema://path","prefix":"pref"}')
   end
   it 'handles ElementContent' do
-    node = XML.children[0].elements['photo']
-    expect(node.to_json).to eq('{"type":"element_declaration","name":"photo","element_type":4,"content":{"name":"hello","occur":"once","type":"element"},"attributes":[{"type":"attribute_declaration","name":"some-attribute","attribute_type":1,"enumeration":[]},{"type":"attribute_declaration","name":"photo_att","attribute_type":5,"enumeration":[]},{"type":"attribute_declaration","name":"photo","attribute_type":10,"enumeration":["notation-system","NoTaTiOn-PuBLiC"]}]}')
+    node = XML.children[0].elements['photo'].content
+    expect(node.to_json).to eq('"{"name":"hello","occur":"once","type":"element"}"')
   end
 
 end
